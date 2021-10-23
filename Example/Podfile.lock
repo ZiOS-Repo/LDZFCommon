@@ -1,0 +1,16 @@
+PODS:
+  - LDZFCommon (0.1.0)
+
+DEPENDENCIES:
+  - LDZFCommon (from `../`)
+
+EXTERNAL SOURCES:
+  LDZFCommon:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  LDZFCommon: a0587af17c138e915041fd1166cda269fa041640
+
+PODFILE CHECKSUM: 28aef8413dfdd4291487cce55af4dcddf9ad6567
+
+COCOAPODS: 1.11.2
