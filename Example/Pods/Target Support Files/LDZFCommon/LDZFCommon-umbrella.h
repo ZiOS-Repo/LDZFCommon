@@ -11,7 +11,7 @@
 #endif
 
 #import "IUCommonlyDefine.h"
-#import "IU_Common.h"
+#import "LDZFCommon.h"
 
 FOUNDATION_EXPORT double LDZFCommonVersionNumber;
 FOUNDATION_EXPORT const unsigned char LDZFCommonVersionString[];

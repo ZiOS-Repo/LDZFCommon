@@ -18,5 +18,40 @@
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "LDZFCommon/Classes/**/*"
+  "source_files": "LDZFCommon/Classes/**/*",
+  "dependencies": {
+    "QMUIKit/QMUICore": [
+
+    ],
+    "QMUIKit/QMUIComponents/QMUIButton": [
+
+    ],
+    "QMUIKit/QMUIComponents/QMUISlider": [
+
+    ],
+    "QMUIKit/QMUIComponents/QMUILabel": [
+
+    ],
+    "QMUIKit/QMUIComponents/QMUIGridView": [
+
+    ],
+    "QMUIKit/QMUIComponents/QMUIMarqueeLabel": [
+
+    ],
+    "QMUIKit/QMUIComponents/QMUITextField": [
+
+    ],
+    "QMUIKit/QMUIComponents/QMUITextView": [
+
+    ],
+    "QMUIKit/QMUIComponents/QMUISegmentedControl": [
+
+    ],
+    "QMUIKit/QMUIComponents/QMUIFloatLayoutView": [
+
+    ],
+    "QMUIKit/QMUIComponents/QMUIAlertController": [
+
+    ]
+  }
 }
