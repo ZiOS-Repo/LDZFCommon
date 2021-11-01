@@ -10,21 +10,6 @@
 #endif
 #endif
 
-#import "QMUIAlertController.h"
-#import "QMUIAppearance.h"
-#import "QMUIButton.h"
-#import "QMUIFloatLayoutView.h"
-#import "QMUIGridView.h"
-#import "QMUIKeyboardManager.h"
-#import "QMUILabel.h"
-#import "QMUIMarqueeLabel.h"
-#import "QMUIModalPresentationViewController.h"
-#import "NSObject+QMUIMultipleDelegates.h"
-#import "QMUIMultipleDelegates.h"
-#import "QMUISegmentedControl.h"
-#import "QMUISlider.h"
-#import "QMUITextField.h"
-#import "QMUITextView.h"
 #import "QMUIKit.h"
 #import "QMUICommonDefines.h"
 #import "QMUIConfiguration.h"

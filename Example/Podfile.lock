@@ -1,53 +1,5 @@
 PODS:
-  - LDZFCommon (0.1.0):
-    - QMUIKit/QMUIComponents/QMUIAlertController
-    - QMUIKit/QMUIComponents/QMUIButton
-    - QMUIKit/QMUIComponents/QMUIFloatLayoutView
-    - QMUIKit/QMUIComponents/QMUIGridView
-    - QMUIKit/QMUIComponents/QMUILabel
-    - QMUIKit/QMUIComponents/QMUIMarqueeLabel
-    - QMUIKit/QMUIComponents/QMUISegmentedControl
-    - QMUIKit/QMUIComponents/QMUISlider
-    - QMUIKit/QMUIComponents/QMUITextField
-    - QMUIKit/QMUIComponents/QMUITextView
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUIAlertController (4.1.3):
-    - QMUIKit/QMUIComponents/QMUIAppearance
-    - QMUIKit/QMUIComponents/QMUIButton
-    - QMUIKit/QMUIComponents/QMUIKeyboardManager
-    - QMUIKit/QMUIComponents/QMUIModalPresentationViewController
-    - QMUIKit/QMUIComponents/QMUITextField
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUIAppearance (4.1.3):
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUIButton (4.1.3):
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUIFloatLayoutView (4.1.3):
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUIGridView (4.1.3):
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUIKeyboardManager (4.1.3):
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUILabel (4.1.3):
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUIMarqueeLabel (4.1.3):
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUIModalPresentationViewController (4.1.3):
-    - QMUIKit/QMUIComponents/QMUIAppearance
-    - QMUIKit/QMUIComponents/QMUIKeyboardManager
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUIMultipleDelegates (4.1.3):
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUISegmentedControl (4.1.3):
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUISlider (4.1.3):
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUITextField (4.1.3):
-    - QMUIKit/QMUIComponents/QMUIMultipleDelegates
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUIComponents/QMUITextView (4.1.3):
-    - QMUIKit/QMUIComponents/QMUILabel
-    - QMUIKit/QMUIComponents/QMUIMultipleDelegates
+  - LDZFCommon (0.1.3):
     - QMUIKit/QMUICore
   - QMUIKit/QMUICore (4.1.3):
     - QMUIKit/QMUILog
@@ -67,7 +19,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LDZFCommon: 61a60d72f80ef3aa188dd24d314f251a1b036ff6
+  LDZFCommon: 8c775e1e7689545155fbcc031302c4a5c44de9b0
   QMUIKit: 1063a99f90aedd6e2dd65026ce0df46e6785e67b
 
 PODFILE CHECKSUM: 28aef8413dfdd4291487cce55af4dcddf9ad6567
