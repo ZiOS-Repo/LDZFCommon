@@ -7,7 +7,7 @@
 //
 
 #import "ICViewController.h"
-
+#import <LDZFCommon/LDZFCommon.h>
 @interface ICViewController ()
 
 @end
@@ -18,6 +18,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    [self.view qmui_removeAllSubviews];
+    kRGBColor(1, 1, 1);
 }
 
 - (void)didReceiveMemoryWarning

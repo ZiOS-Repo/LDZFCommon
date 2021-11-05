@@ -10,19 +10,37 @@
 #import <UIKit/UIKit.h>
 
 #pragma mark - 颜色
-#define IU_COLOR(r,g,b) [UIColor colorWithRed:(r) / 255.0 green:(g) / 255.0 blue:(b) / 255.0 alpha:1.0]
-#define IU_COLORA(r,g,b,a) [UIColor colorWithRed:(r) / 255.0 green:(g) / 255.0 blue:(b) / 255.0 alpha:(a)]
-#define IU_COLORFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-//随机色
-#define IU_COLOR_RANDOM  [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0]
+
+/// RGBA 颜色
+#ifndef kRGBAColor
+#define kRGBAColor(redValue, greenValue, blueValue, alphaValue) [UIColor colorWithRed:(redValue)/255.0f green:(greenValue)/255.0f blue:(blueValue)/255.0f alpha:(alphaValue)]
+#endif
+
+
+/// RGB 颜色, alpha 默认为 1.0
+#ifndef kRGBColor
+#define kRGBColor(redValue, greenValue , blueValue) kRGBAColor(redValue, greenValue , blueValue, 1.0)
+#endif
+
+
+/// 十六进制颜色, rgbValue为16进制数字
+#ifndef kHexAColor
+#define kHexAColor(rgbValue, a) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:(a)]
+#endif
+
+
+/// 十六进制颜色, alpha 默认为 1.0
+#ifndef kHexColor
+#define kHexColor(rgbValue) kHexAColor(rgbValue, 1.0)
+#endif
 
 /**
  Synthsize a weak or strong reference.
  
  Example:
-    @weakify(self)
+    @iUweakify(self)
     [self doSomething^{
-        @strongify(self)
+        @iUstrongify(self)
         if (!self) return;
         ...
     }];

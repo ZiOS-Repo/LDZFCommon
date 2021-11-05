@@ -9,7 +9,7 @@
 #ifndef LDZFCommon_h
 #define LDZFCommon_h
 #import "IUCommonlyDefine.h"
-#import <QMUIKit/QMUICore.h>
+#import <QMUIKit/QMUIKit.h>
 
 
 #endif /* LDZFCommon_h */
