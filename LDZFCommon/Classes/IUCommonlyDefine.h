@@ -34,6 +34,8 @@
 #define kHexColor(rgbValue) kHexAColor(rgbValue, 1.0)
 #endif
 
+
+#pragma mark - weak & strong
 /**
  Synthsize a weak or strong reference.
  
@@ -77,6 +79,54 @@
         #endif
     #endif
 #endif
+
+#pragma mark - 系统判断
+/**
+ *  ios 7判断
+ */
+#ifndef kIUsIOS7Later
+#define kIUsIOS7Later  !([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] == NSOrderedAscending)
+#endif
+
+/**
+ *  ios 8判断
+ */
+#ifndef kIUsIOS8Later
+#define kIUsIOS8Later  !([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedAscending)
+#endif
+
+/**
+ *  ios 9判断
+ */
+#ifndef kIUsIOS9Later
+#define kIUsIOS9Later  !([[[UIDevice currentDevice] systemVersion] compare:@"9.0" options:NSNumericSearch] == NSOrderedAscending)
+
+
+#endif
+
+/**
+ *  ios 10判断
+ */
+#ifndef kIUsIOS10Later
+#define kIUsIOS10Later  !([[[UIDevice currentDevice] systemVersion] compare:@"10.0" options:NSNumericSearch] == NSOrderedAscending)
+
+#endif
+/**
+ *  ios 11判断
+ */
+#ifndef kIUsIOS11Later
+//#define kIUsIOS11Later  !([[[UIDevice currentDevice] systemVersion] compare:@"11.0" options:NSNumericSearch] == NSOrderedAscending)
+#define kIUsIOS11Later  (([[[UIDevice currentDevice] systemVersion] floatValue] >=11.0)? (YES):(NO))
+#endif
+
+/**
+ *  ios 11.2判断
+ */
+#ifndef kIUsIOS11_2Later
+//#define kIUsIOS11Later  !([[[UIDevice currentDevice] systemVersion] compare:@"11.0" options:NSNumericSearch] == NSOrderedAscending)
+#define kIUsIOS11_2Later  (([[[UIDevice currentDevice] systemVersion] floatValue] >=11.2)? (YES):(NO))
+#endif
+
 
 
 
