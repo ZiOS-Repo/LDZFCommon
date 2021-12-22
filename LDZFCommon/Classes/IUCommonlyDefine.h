@@ -34,6 +34,16 @@
 #define kHexColor(rgbValue) kHexAColor(rgbValue, 1.0)
 #endif
 
+/// 弱引用
+#ifndef kWeakSelf
+#define kWeakSelf __weak typeof(self) weakSelf = self;
+#endif
+
+
+/// 强引用, 需要与 kWeakSelf 配合使用
+#ifndef kStrongSelf
+#define kStrongSelf __strong __typeof(&*weakSelf) strongSelf = weakSelf;
+#endif
 
 #pragma mark - weak & strong
 /**
