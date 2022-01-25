@@ -140,42 +140,6 @@
 
 
 
-#pragma mark - 非空判断
-/// 字符串是否为空
-static inline BOOL IUIsBlankString(NSString *aStr){
-    if (!aStr) {return YES;}
-    if ([aStr isKindOfClass:[NSNull class]]) {return YES;}
-    if (![aStr isKindOfClass:[NSString class]]) {return YES;}
-    if (!aStr.length) {return YES;}
-
-    NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    NSString *trimmedStr = [aStr stringByTrimmingCharactersInSet:set];
-    if (!trimmedStr.length) {return YES;}
-    return NO;
-}
-/// 数组是否为空
-static inline BOOL IUIsBlankArr(NSArray *arr){
-    if (!arr) {return YES;}
-    if ([arr isKindOfClass:[NSNull class]]) {return YES;}
-    if (![arr isKindOfClass:[NSArray class]]) {return YES;}
-    if (!arr.count) {return YES;}
-    return NO;
-}
-/// 字典是否为空
-static inline BOOL IUIsBlankDictionary(NSDictionary *dic){
-    if (!dic) {return YES;}
-    if ([dic isKindOfClass:[NSNull class]]) {return YES;}
-    if (![dic isKindOfClass:[NSDictionary class]]) {return YES;}
-    if (!dic.count) {return YES;}
-    return NO;
-
-}
-/// 安全字符串
-static inline NSString* IUSafeStr(NSString *str){
-    return IUIsBlankString(str) ? @"" : str;
-}
-
-
 #pragma mark - 常用Block定义
 typedef void (^IUVoidBlock)(void);
 typedef BOOL (^IUBoolBlock)(void);
