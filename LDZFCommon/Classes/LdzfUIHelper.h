@@ -60,4 +60,12 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+@interface LdzfUIHelper (UIColor)
++ (UIColor *)colorWithHexString:(NSString *)hexString;
++ (UIColor *)colorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha;
++ (UIColor *)colorWithColorString:(NSString *)colorString;
++ (UIColor *)randomColor;
+@end
+
+
 NS_ASSUME_NONNULL_END

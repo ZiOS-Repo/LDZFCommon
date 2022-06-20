@@ -211,6 +211,11 @@
 #define kHexColor(rgbValue) kHexAColor(rgbValue, 1.0)
 #endif
 
+#ifndef kStringColor
+#define kStringColor(colorString) [LdzfUIHelper colorWithColorString:colorString]
+#endif
+
+
 
 #pragma mark -
 #pragma mark - 常用Block定义
