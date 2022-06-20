@@ -12,6 +12,8 @@
 
 #import "LDZFCommon.h"
 #import "LdzfCommonlyDefine.h"
+#import "LdzfDataType.h"
+#import "LdzfUIHelper.h"
 
 FOUNDATION_EXPORT double LDZFCommonVersionNumber;
 FOUNDATION_EXPORT const unsigned char LDZFCommonVersionString[];

@@ -1,26 +1,15 @@
 PODS:
-  - LDZFCommon (0.1.7):
-    - QMUIKit/QMUICore
-  - QMUIKit/QMUICore (4.1.3):
-    - QMUIKit/QMUILog
-    - QMUIKit/QMUIWeakObjectContainer
-  - QMUIKit/QMUILog (4.1.3)
-  - QMUIKit/QMUIWeakObjectContainer (4.1.3)
+  - LDZFCommon (0.2.0)
 
 DEPENDENCIES:
   - LDZFCommon (from `../`)
-
-SPEC REPOS:
-  trunk:
-    - QMUIKit
 
 EXTERNAL SOURCES:
   LDZFCommon:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LDZFCommon: c6fc2354b71e8d5f2498dc483129f771ec5f4eb6
-  QMUIKit: 1063a99f90aedd6e2dd65026ce0df46e6785e67b
+  LDZFCommon: 2779cec16ee911d53a1e35b5265bb67c76d21ddc
 
 PODFILE CHECKSUM: 28aef8413dfdd4291487cce55af4dcddf9ad6567
 

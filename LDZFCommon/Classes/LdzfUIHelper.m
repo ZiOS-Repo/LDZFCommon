@@ -1,163 +1,74 @@
-/**
- * Tencent is pleased to support the open source community by making QMUI_iOS available.
- * Copyright (C) 2016-2020 THL A29 Limited, a Tencent company. All rights reserved.
- * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
- * http://opensource.org/licenses/MIT
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
- */
-
 //
-//  QMUIHelper.m
-//  qmui
+//  LdzfUIHelper.m
+//  LDZFCommon
 //
-//  Created by QMUI Team on 14/10/25.
+//  Created by zhuyuhui on 2022/6/20.
 //
 
-#import "QMUIHelper.h"
-#import "QMUICore.h"
-#import "NSNumber+QMUI.h"
-#import "UIViewController+QMUI.h"
-#import "NSString+QMUI.h"
-#import "UIInterface+QMUI.h"
-#import "NSObject+QMUI.h"
+#import "LdzfUIHelper.h"
+#import "LdzfCommonlyDefine.h"
 #import <AVFoundation/AVFoundation.h>
 #import <math.h>
 #import <sys/utsname.h>
 
-NSString *const kQMUIResourcesBundleName = @"QMUIResources";
+@implementation LdzfUIHelper
 
-@implementation QMUIHelper (Bundle)
 
-+ (UIImage *)imageWithName:(NSString *)name {
-    static NSBundle *resourceBundle = nil;
-    if (!resourceBundle) {
-        NSBundle *mainBundle = [NSBundle bundleForClass:self];
-        NSString *resourcePath = [mainBundle pathForResource:kQMUIResourcesBundleName ofType:@"bundle"];
-        resourceBundle = [NSBundle bundleWithPath:resourcePath] ?: mainBundle;
-    }
-    UIImage *image = [UIImage imageNamed:name inBundle:resourceBundle compatibleWithTraitCollection:nil];
-    return image;
-}
 
 @end
 
 
-@implementation QMUIHelper (DynamicType)
 
-+ (NSNumber *)preferredContentSizeLevel {
-    NSNumber *index = nil;
-    if ([UIApplication instancesRespondToSelector:@selector(preferredContentSizeCategory)]) {
-        NSString *contentSizeCategory = UIApplication.sharedApplication.preferredContentSizeCategory;
-        if ([contentSizeCategory isEqualToString:UIContentSizeCategoryExtraSmall]) {
-            index = [NSNumber numberWithInt:0];
-        } else if ([contentSizeCategory isEqualToString:UIContentSizeCategorySmall]) {
-            index = [NSNumber numberWithInt:1];
-        } else if ([contentSizeCategory isEqualToString:UIContentSizeCategoryMedium]) {
-            index = [NSNumber numberWithInt:2];
-        } else if ([contentSizeCategory isEqualToString:UIContentSizeCategoryLarge]) {
-            index = [NSNumber numberWithInt:3];
-        } else if ([contentSizeCategory isEqualToString:UIContentSizeCategoryExtraLarge]) {
-            index = [NSNumber numberWithInt:4];
-        } else if ([contentSizeCategory isEqualToString:UIContentSizeCategoryExtraExtraLarge]) {
-            index = [NSNumber numberWithInt:5];
-        } else if ([contentSizeCategory isEqualToString:UIContentSizeCategoryExtraExtraExtraLarge]) {
-            index = [NSNumber numberWithInt:6];
-        } else if ([contentSizeCategory isEqualToString:UIContentSizeCategoryAccessibilityMedium]) {
-            index = [NSNumber numberWithInt:6];
-        } else if ([contentSizeCategory isEqualToString:UIContentSizeCategoryAccessibilityLarge]) {
-            index = [NSNumber numberWithInt:6];
-        } else if ([contentSizeCategory isEqualToString:UIContentSizeCategoryAccessibilityExtraLarge]) {
-            index = [NSNumber numberWithInt:6];
-        } else if ([contentSizeCategory isEqualToString:UIContentSizeCategoryAccessibilityExtraExtraLarge]) {
-            index = [NSNumber numberWithInt:6];
-        } else if ([contentSizeCategory isEqualToString:UIContentSizeCategoryAccessibilityExtraExtraExtraLarge]) {
-            index = [NSNumber numberWithInt:6];
-        } else{
-            index = [NSNumber numberWithInt:6];
-        }
-    } else {
-        index = [NSNumber numberWithInt:3];
+@implementation LdzfUIHelper (SystemVersion)
+
++ (NSInteger)numbericOSVersion {
+    NSString *OSVersion = [[UIDevice currentDevice] systemVersion];
+    NSArray *OSVersionArr = [OSVersion componentsSeparatedByString:@"."];
+    
+    NSInteger numbericOSVersion = 0;
+    NSInteger pos = 0;
+    
+    while ([OSVersionArr count] > pos && pos < 3) {
+        numbericOSVersion += ([[OSVersionArr objectAtIndex:pos] integerValue] * pow(10, (4 - pos * 2)));
+        pos++;
     }
     
-    return index;
+    return numbericOSVersion;
 }
 
-+ (CGFloat)heightForDynamicTypeCell:(NSArray *)heights {
-    NSNumber *index = [QMUIHelper preferredContentSizeLevel];
-    return [((NSNumber *)[heights objectAtIndex:[index intValue]]) qmui_CGFloatValue];
-}
-@end
-
-@implementation QMUIHelper (Keyboard)
-
-QMUISynthesizeBOOLProperty(keyboardVisible, setKeyboardVisible)
-QMUISynthesizeCGFloatProperty(lastKeyboardHeight, setLastKeyboardHeight)
-
-- (void)handleKeyboardWillShow:(NSNotification *)notification {
-    self.keyboardVisible = YES;
-    self.lastKeyboardHeight = [QMUIHelper keyboardHeightWithNotification:notification];
-}
-
-- (void)handleKeyboardWillHide:(NSNotification *)notification {
-    self.keyboardVisible = NO;
-}
-
-+ (BOOL)isKeyboardVisible {
-    BOOL visible = [QMUIHelper sharedInstance].keyboardVisible;
-    return visible;
-}
-
-+ (CGFloat)lastKeyboardHeightInApplicationWindowWhenVisible {
-    return [QMUIHelper sharedInstance].lastKeyboardHeight;
-}
-
-+ (CGRect)keyboardRectWithNotification:(NSNotification *)notification {
-    NSDictionary *userInfo = [notification userInfo];
-    CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    // 注意iOS8以下的系统在横屏时得到的rect，宽度和高度相反了，所以不建议直接通过这个方法获取高度，而是使用<code>keyboardHeightWithNotification:inView:</code>，因为在后者的实现里会将键盘的rect转换坐标系，转换过程就会处理横竖屏旋转问题。
-    return keyboardRect;
-}
-
-+ (CGFloat)keyboardHeightWithNotification:(NSNotification *)notification {
-    return [QMUIHelper keyboardHeightWithNotification:notification inView:nil];
-}
-
-+ (CGFloat)keyboardHeightWithNotification:(nullable NSNotification *)notification inView:(nullable UIView *)view {
-    CGRect keyboardRect = [self keyboardRectWithNotification:notification];
-    if (@available(iOS 13.0, *)) {
-        // iOS 13 分屏键盘 x 不是 0，不知道是系统 BUG 还是故意这样，先这样保护，再观察一下后面的 beta 版本
-        if (IS_SPLIT_SCREEN_IPAD && keyboardRect.origin.x > 0) {
-            keyboardRect.origin.x = 0;
++ (NSComparisonResult)compareSystemVersion:(NSString *)currentVersion toVersion:(NSString *)targetVersion {
+    NSArray *currentVersionArr = [currentVersion componentsSeparatedByString:@"."];
+    NSArray *targetVersionArr = [targetVersion componentsSeparatedByString:@"."];
+    
+    NSInteger pos = 0;
+    
+    while ([currentVersionArr count] > pos || [targetVersionArr count] > pos) {
+        NSInteger v1 = [currentVersionArr count] > pos ? [[currentVersionArr objectAtIndex:pos] integerValue] : 0;
+        NSInteger v2 = [targetVersionArr count] > pos ? [[targetVersionArr objectAtIndex:pos] integerValue] : 0;
+        if (v1 < v2) {
+            return NSOrderedAscending;
         }
+        else if (v1 > v2) {
+            return NSOrderedDescending;
+        }
+        pos++;
     }
-    if (!view) { return CGRectGetHeight(keyboardRect); }
-    CGRect keyboardRectInView = [view convertRect:keyboardRect fromView:view.window];
-    CGRect keyboardVisibleRectInView = CGRectIntersection(view.bounds, keyboardRectInView);
-    CGFloat resultHeight = CGRectIsValidated(keyboardVisibleRectInView) ? CGRectGetHeight(keyboardVisibleRectInView) : 0;
-    return resultHeight;
+    
+    return NSOrderedSame;
 }
 
-+ (NSTimeInterval)keyboardAnimationDurationWithNotification:(NSNotification *)notification {
-    NSDictionary *userInfo = [notification userInfo];
-    NSTimeInterval animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    return animationDuration;
++ (BOOL)isCurrentSystemAtLeastVersion:(NSString *)targetVersion {
+    return [LdzfUIHelper compareSystemVersion:[[UIDevice currentDevice] systemVersion] toVersion:targetVersion] == NSOrderedSame || [LdzfUIHelper compareSystemVersion:[[UIDevice currentDevice] systemVersion] toVersion:targetVersion] == NSOrderedDescending;
 }
 
-+ (UIViewAnimationCurve)keyboardAnimationCurveWithNotification:(NSNotification *)notification {
-    NSDictionary *userInfo = [notification userInfo];
-    UIViewAnimationCurve curve = (UIViewAnimationCurve)[[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    return curve;
-}
-
-+ (UIViewAnimationOptions)keyboardAnimationOptionsWithNotification:(NSNotification *)notification {
-    UIViewAnimationOptions options = [QMUIHelper keyboardAnimationCurveWithNotification:notification]<<16;
-    return options;
++ (BOOL)isCurrentSystemLowerThanVersion:(NSString *)targetVersion {
+    return [LdzfUIHelper compareSystemVersion:[[UIDevice currentDevice] systemVersion] toVersion:targetVersion] == NSOrderedAscending;
 }
 
 @end
 
 
-@implementation QMUIHelper (AudioSession)
+@implementation LdzfUIHelper (AudioSession)
 
 + (void)redirectAudioRouteWithSpeaker:(BOOL)speaker temporary:(BOOL)temporary {
     if (![[AVAudioSession sharedInstance].category isEqualToString:AVAudioSessionCategoryPlayAndRecord]) {
@@ -189,7 +100,7 @@ QMUISynthesizeCGFloatProperty(lastKeyboardHeight, setLastKeyboardHeight)
 @end
 
 
-@implementation QMUIHelper (UIGraphic)
+@implementation LdzfUIHelper (UIGraphic)
 
 static CGFloat pixelOne = -1.0f;
 + (CGFloat)pixelOne {
@@ -221,7 +132,7 @@ static CGFloat pixelOne = -1.0f;
 
 @end
 
-@implementation QMUIHelper (Device)
+@implementation LdzfUIHelper (Device)
 
 + (NSString *)deviceModel {
     if (IS_SIMULATOR) {
@@ -460,7 +371,7 @@ static NSInteger isNotchedScreen = -1;
                 }
                 isNotchedScreen = peripheryInsets.bottom > 0 ? 1 : 0;
             } else {
-                isNotchedScreen = [QMUIHelper is58InchScreen] ? 1 : 0;
+                isNotchedScreen = [LdzfUIHelper is58InchScreen] ? 1 : 0;
             }
         }
     } else {
@@ -470,8 +381,9 @@ static NSInteger isNotchedScreen = -1;
     return isNotchedScreen > 0;
 }
 
+
 + (BOOL)isRegularScreen {
-    return [self isIPad] || (!IS_ZOOMEDMODE && ([self is65InchScreen] || [self is61InchScreen] || [self is55InchScreen]));
+    return [self isIPad] || (![self isZoomedMode] && ([self is65InchScreen] || [self is61InchScreen] || [self is55InchScreen]));
 }
 
 static NSInteger is65InchScreen = -1;
@@ -479,7 +391,7 @@ static NSInteger is65InchScreen = -1;
     if (is65InchScreen < 0) {
         // Since iPhone XS Max、iPhone 11 Pro Max and iPhone XR share the same resolution, we have to distinguish them using the model identifiers
         // 由于 iPhone XS Max、iPhone 11 Pro Max 这两款机型和 iPhone XR 的屏幕宽高是一致的，我们通过机器 Identifier 加以区别
-        is65InchScreen = (DEVICE_WIDTH == self.screenSizeFor65Inch.width && DEVICE_HEIGHT == self.screenSizeFor65Inch.height && ([[QMUIHelper deviceModel] isEqualToString:@"iPhone11,4"] || [[QMUIHelper deviceModel] isEqualToString:@"iPhone11,6"] || [[QMUIHelper deviceModel] isEqualToString:@"iPhone12,5"])) ? 1 : 0;
+        is65InchScreen = (DEVICE_WIDTH == self.screenSizeFor65Inch.width && DEVICE_HEIGHT == self.screenSizeFor65Inch.height && ([[LdzfUIHelper deviceModel] isEqualToString:@"iPhone11,4"] || [[LdzfUIHelper deviceModel] isEqualToString:@"iPhone11,6"] || [[LdzfUIHelper deviceModel] isEqualToString:@"iPhone12,5"])) ? 1 : 0;
     }
     return is65InchScreen > 0;
 }
@@ -487,7 +399,7 @@ static NSInteger is65InchScreen = -1;
 static NSInteger is61InchScreen = -1;
 + (BOOL)is61InchScreen {
     if (is61InchScreen < 0) {
-        is61InchScreen = (DEVICE_WIDTH == self.screenSizeFor61Inch.width && DEVICE_HEIGHT == self.screenSizeFor61Inch.height && ([[QMUIHelper deviceModel] isEqualToString:@"iPhone11,8"] || [[QMUIHelper deviceModel] isEqualToString:@"iPhone12,1"])) ? 1 : 0;
+        is61InchScreen = (DEVICE_WIDTH == self.screenSizeFor61Inch.width && DEVICE_HEIGHT == self.screenSizeFor61Inch.height && ([[LdzfUIHelper deviceModel] isEqualToString:@"iPhone11,8"] || [[LdzfUIHelper deviceModel] isEqualToString:@"iPhone12,1"])) ? 1 : 0;
     }
     return is61InchScreen > 0;
 }
@@ -562,25 +474,6 @@ static NSInteger is35InchScreen = -1;
     return CGSizeMake(320, 480);
 }
 
-static CGFloat preferredLayoutWidth = -1;
-+ (CGFloat)preferredLayoutAsSimilarScreenWidthForIPad {
-    if (preferredLayoutWidth < 0) {
-        NSArray<NSNumber *> *widths = @[@([self screenSizeFor65Inch].width),
-                                        @([self screenSizeFor58Inch].width),
-                                        @([self screenSizeFor40Inch].width)];
-        preferredLayoutWidth = SCREEN_WIDTH;
-        UIWindow *window = UIApplication.sharedApplication.delegate.window ?: [[UIWindow alloc] init];// iOS 9 及以上的系统，新 init 出来的 window 自动被设置为当前 App 的宽度
-        CGFloat windowWidth = CGRectGetWidth(window.bounds);
-        for (NSInteger i = 0; i < widths.count; i++) {
-            if (windowWidth <= widths[i].qmui_CGFloatValue) {
-                preferredLayoutWidth = widths[i].qmui_CGFloatValue;
-                continue;
-            }
-        }
-    }
-    return preferredLayoutWidth;
-}
-
 + (UIEdgeInsets)safeAreaInsetsForDeviceWithNotch {
     if (![self isNotchedScreen]) {
         return UIEdgeInsetsZero;
@@ -612,7 +505,7 @@ static CGFloat preferredLayoutWidth = -1;
 static NSInteger isHighPerformanceDevice = -1;
 + (BOOL)isHighPerformanceDevice {
     if (isHighPerformanceDevice < 0) {
-        NSString *model = [QMUIHelper deviceModel];
+        NSString *model = [LdzfUIHelper deviceModel];
         NSString *identifier = [model qmui_stringMatchedByPattern:@"\\d+"];
         NSInteger version = identifier.integerValue;
         if (IS_IPAD) {
@@ -623,6 +516,17 @@ static NSInteger isHighPerformanceDevice = -1;
     }
     return isHighPerformanceDevice > 0;
 }
+
++ (NSString *)stringMatchedByFull:(NSString *)full Pattern:(NSString *)pattern {
+    NSRange range = [full rangeOfString:pattern options:NSRegularExpressionSearch|NSCaseInsensitiveSearch];
+    if (range.location != NSNotFound) {
+        return [full substringWithRange:range];
+    }
+    return nil;
+}
+
+
+
 
 + (BOOL)isZoomedMode {
     if (!IS_IPHONE) {
@@ -642,46 +546,10 @@ static NSInteger isHighPerformanceDevice = -1;
     return nativeScale > scale;
 }
 
-- (void)handleAppSizeWillChange:(NSNotification *)notification {
-    preferredLayoutWidth = -1;
-}
-
-+ (CGSize)applicationSize {
-    /// applicationFrame 在 iPad 下返回的 size 要比 window 实际的 size 小，这个差值体现在 origin 上，所以用 origin + size 修正得到正确的大小。
-    BeginIgnoreDeprecatedWarning
-    CGRect applicationFrame = [UIScreen mainScreen].applicationFrame;
-    EndIgnoreDeprecatedWarning
-    return CGSizeMake(applicationFrame.size.width + applicationFrame.origin.x, applicationFrame.size.height + applicationFrame.origin.y);
-}
-
 @end
 
-@implementation QMUIHelper (UIApplication)
 
-+ (void)dimmedApplicationWindow {
-    UIWindow *window = UIApplication.sharedApplication.delegate.window;
-    window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-    [window tintColorDidChange];
-}
-
-+ (void)resetDimmedApplicationWindow {
-    UIWindow *window = UIApplication.sharedApplication.delegate.window;
-    window.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-    [window tintColorDidChange];
-}
-
-+ (UIStatusBarStyle)statusBarStyleDarkContent {
-#ifdef IOS13_SDK_ALLOWED
-    if (@available(iOS 13.0, *))
-        return UIStatusBarStyleDarkContent;
-    else
-#endif
-        return UIStatusBarStyleDefault;
-}
-
-@end
-
-@implementation QMUIHelper (Animation)
+@implementation LdzfUIHelper (Animation)
 
 + (void)executeAnimationBlock:(__attribute__((noescape)) void (^)(void))animationBlock completionBlock:(__attribute__((noescape)) void (^)(void))completionBlock {
     if (!animationBlock) return;
@@ -693,88 +561,53 @@ static NSInteger isHighPerformanceDevice = -1;
 
 @end
 
-@implementation QMUIHelper (SystemVersion)
 
-+ (NSInteger)numbericOSVersion {
-    NSString *OSVersion = [[UIDevice currentDevice] systemVersion];
-    NSArray *OSVersionArr = [OSVersion componentsSeparatedByString:@"."];
+
+#pragma mark - 其他分类
+@implementation NSObject (QMUI)
+
+- (void)qmui_performSelector:(SEL)selector withPrimitiveReturnValue:(void *)returnValue {
+    [self qmui_performSelector:selector withPrimitiveReturnValue:returnValue arguments:nil];
+}
+
+- (void)qmui_performSelector:(SEL)selector withPrimitiveReturnValue:(void *)returnValue arguments:(void *)firstArgument, ... {
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:selector]];
+    [invocation setTarget:self];
+    [invocation setSelector:selector];
     
-    NSInteger numbericOSVersion = 0;
-    NSInteger pos = 0;
-    
-    while ([OSVersionArr count] > pos && pos < 3) {
-        numbericOSVersion += ([[OSVersionArr objectAtIndex:pos] integerValue] * pow(10, (4 - pos * 2)));
-        pos++;
+    if (firstArgument) {
+        va_list valist;
+        va_start(valist, firstArgument);
+        [invocation setArgument:firstArgument atIndex:2];// 0->self, 1->_cmd
+        
+        void *currentArgument;
+        NSInteger index = 3;
+        while ((currentArgument = va_arg(valist, void *))) {
+            [invocation setArgument:currentArgument atIndex:index];
+            index++;
+        }
+        va_end(valist);
     }
     
-    return numbericOSVersion;
-}
-
-+ (NSComparisonResult)compareSystemVersion:(NSString *)currentVersion toVersion:(NSString *)targetVersion {
-    NSArray *currentVersionArr = [currentVersion componentsSeparatedByString:@"."];
-    NSArray *targetVersionArr = [targetVersion componentsSeparatedByString:@"."];
+    [invocation invoke];
     
-    NSInteger pos = 0;
-    
-    while ([currentVersionArr count] > pos || [targetVersionArr count] > pos) {
-        NSInteger v1 = [currentVersionArr count] > pos ? [[currentVersionArr objectAtIndex:pos] integerValue] : 0;
-        NSInteger v2 = [targetVersionArr count] > pos ? [[targetVersionArr objectAtIndex:pos] integerValue] : 0;
-        if (v1 < v2) {
-            return NSOrderedAscending;
-        }
-        else if (v1 > v2) {
-            return NSOrderedDescending;
-        }
-        pos++;
+    if (returnValue) {
+        [invocation getReturnValue:returnValue];
     }
-    
-    return NSOrderedSame;
 }
 
-+ (BOOL)isCurrentSystemAtLeastVersion:(NSString *)targetVersion {
-    return [QMUIHelper compareSystemVersion:[[UIDevice currentDevice] systemVersion] toVersion:targetVersion] == NSOrderedSame || [QMUIHelper compareSystemVersion:[[UIDevice currentDevice] systemVersion] toVersion:targetVersion] == NSOrderedDescending;
-}
-
-+ (BOOL)isCurrentSystemLowerThanVersion:(NSString *)targetVersion {
-    return [QMUIHelper compareSystemVersion:[[UIDevice currentDevice] systemVersion] toVersion:targetVersion] == NSOrderedAscending;
-}
 
 @end
 
-@implementation QMUIHelper
 
-+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [QMUIHelper sharedInstance];// 确保内部的变量、notification 都正确配置
-    });
-}
+@implementation NSString (QMUI)
 
-+ (instancetype)sharedInstance {
-    static dispatch_once_t onceToken;
-    static QMUIHelper *instance = nil;
-    dispatch_once(&onceToken,^{
-        instance = [[super allocWithZone:NULL] init];
-        // 先设置默认值，不然可能变量的指针地址错误
-        instance.keyboardVisible = NO;
-        instance.lastKeyboardHeight = 0;
-        instance.orientationBeforeChangingByHelper = UIDeviceOrientationUnknown;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(handleAppSizeWillChange:) name:QMUIAppSizeWillChangeNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(handleDeviceOrientationNotification:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    });
-    return instance;
-}
-
-+ (id)allocWithZone:(struct _NSZone *)zone{
-    return [self sharedInstance];
-}
-
-- (void)dealloc {
-    // QMUIHelper 若干个分类里有用到消息监听，所以在 dealloc 的时候注销一下
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (NSString *)qmui_stringMatchedByPattern:(NSString *)pattern {
+    NSRange range = [self rangeOfString:pattern options:NSRegularExpressionSearch|NSCaseInsensitiveSearch];
+    if (range.location != NSNotFound) {
+        return [self substringWithRange:range];
+    }
+    return nil;
 }
 
 @end
