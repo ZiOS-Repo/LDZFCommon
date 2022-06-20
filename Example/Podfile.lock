@@ -1,5 +1,5 @@
 PODS:
-  - LDZFCommon (0.2.0)
+  - LDZFCommon (0.2.2)
 
 DEPENDENCIES:
   - LDZFCommon (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LDZFCommon: 2779cec16ee911d53a1e35b5265bb67c76d21ddc
+  LDZFCommon: 235eba2151b8cb4773caf7ea71d42245b1279c3a
 
 PODFILE CHECKSUM: 28aef8413dfdd4291487cce55af4dcddf9ad6567
 

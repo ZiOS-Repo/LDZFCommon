@@ -1,6 +1,6 @@
 {
   "name": "LDZFCommon",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "summary": "A short description of LDZFCommon.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/ZiOS-Repo/LDZFCommon",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/ZiOS-Repo/LDZFCommon.git",
-    "tag": "0.2.0"
+    "tag": "0.2.2"
   },
   "platforms": {
     "ios": "9.0"

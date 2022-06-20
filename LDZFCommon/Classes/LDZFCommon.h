@@ -11,5 +11,6 @@
 #import "LdzfCommonlyDefine.h"
 #import "LdzfDataType.h"
 #import "LdzfUIHelper.h"
+#import "LdzfDeviceInfo.h"
 
 #endif /* LDZFCommon_h */

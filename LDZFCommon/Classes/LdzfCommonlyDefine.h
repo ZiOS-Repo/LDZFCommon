@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "LdzfUIHelper.h"
+#import "LdzfDeviceInfo.h"
 
 #pragma mark - 变量-编译相关
 
@@ -23,16 +24,16 @@
 #pragma mark - 变量-设备相关
 
 /// 设备类型
-#define IS_IPAD [LdzfUIHelper isIPad]
-#define IS_IPOD [LdzfUIHelper isIPod]
-#define IS_IPHONE [LdzfUIHelper isIPhone]
-#define IS_SIMULATOR [LdzfUIHelper isSimulator]
+#define IS_IPAD [LdzfDeviceInfo isIPad]
+#define IS_IPOD [LdzfDeviceInfo isIPod]
+#define IS_IPHONE [LdzfDeviceInfo isIPhone]
+#define IS_SIMULATOR [LdzfDeviceInfo isSimulator]
 
 /// 操作系统版本号，只获取第二级的版本号，例如 10.3.1 只会得到 10.3
 #define IOS_VERSION ([[[UIDevice currentDevice] systemVersion] doubleValue])
 
 /// 数字形式的操作系统版本号，可直接用于大小比较；如 110205 代表 11.2.5 版本；根据 iOS 规范，版本号最多可能有3位
-#define IOS_VERSION_NUMBER [LdzfUIHelper numbericOSVersion]
+#define IOS_VERSION_NUMBER [LdzfDeviceInfo numbericOSVersion]
 
 /// 是否横竖屏
 /// 用户界面横屏了才会返回YES
@@ -54,19 +55,19 @@
 
 
 /// iPhone XS Max
-#define IS_65INCH_SCREEN [LdzfUIHelper is65InchScreen]
+#define IS_65INCH_SCREEN [LdzfDeviceInfo is65InchScreen]
 /// iPhone XR
-#define IS_61INCH_SCREEN [LdzfUIHelper is61InchScreen]
+#define IS_61INCH_SCREEN [LdzfDeviceInfo is61InchScreen]
 /// iPhone X/XS
-#define IS_58INCH_SCREEN [LdzfUIHelper is58InchScreen]
+#define IS_58INCH_SCREEN [LdzfDeviceInfo is58InchScreen]
 /// iPhone 6/7/8 Plus
-#define IS_55INCH_SCREEN [LdzfUIHelper is55InchScreen]
+#define IS_55INCH_SCREEN [LdzfDeviceInfo is55InchScreen]
 /// iPhone 6/7/8
-#define IS_47INCH_SCREEN [LdzfUIHelper is47InchScreen]
+#define IS_47INCH_SCREEN [LdzfDeviceInfo is47InchScreen]
 /// iPhone 5/5S/SE
-#define IS_40INCH_SCREEN [LdzfUIHelper is40InchScreen]
+#define IS_40INCH_SCREEN [LdzfDeviceInfo is40InchScreen]
 /// iPhone 4/4S
-#define IS_35INCH_SCREEN [LdzfUIHelper is35InchScreen]
+#define IS_35INCH_SCREEN [LdzfDeviceInfo is35InchScreen]
 /// iPhone 4/4S/5/5S/SE
 #define IS_320WIDTH_SCREEN (IS_35INCH_SCREEN || IS_40INCH_SCREEN)
 
@@ -74,7 +75,7 @@
 #define IS_RETINASCREEN ([[UIScreen mainScreen] scale] >= 2.0)
 
 /// 是否放大模式（iPhone 6及以上的设备支持放大模式，iPhone X 除外）
-#define IS_ZOOMEDMODE [LdzfUIHelper isZoomedMode]
+#define IS_ZOOMEDMODE [LdzfDeviceInfo isZoomedMode]
 
 #pragma mark - 变量-布局相关
 
@@ -110,13 +111,13 @@
 #define NavigationContentTopConstant (StatusBarHeightConstant + NavigationBarHeight)
 
 /// iPhoneX 系列全面屏手机的安全区域的静态值
-#define SafeAreaInsetsConstantForDeviceWithNotch [LdzfUIHelper safeAreaInsetsForDeviceWithNotch]
+#define SafeAreaInsetsConstantForDeviceWithNotch [LdzfDeviceInfo safeAreaInsetsForDeviceWithNotch]
 
 /// 区分全面屏（iPhone X 系列）和非全面屏
-#define PreferredValueForNotchedDevice(_notchedDevice, _otherDevice) ([LdzfUIHelper isNotchedScreen] ? _notchedDevice : _otherDevice)
+#define PreferredValueForNotchedDevice(_notchedDevice, _otherDevice) ([LdzfDeviceInfo isNotchedScreen] ? _notchedDevice : _otherDevice)
 
 /// 将所有屏幕按照宽松/紧凑分类，其中 iPad、iPhone XS Max/XR/Plus 均为宽松屏幕，但开启了放大模式的设备均会视为紧凑屏幕
-#define PreferredValueForVisualDevice(_regular, _compact) ([LdzfUIHelper isRegularScreen] ? _regular : _compact)
+#define PreferredValueForVisualDevice(_regular, _compact) ([LdzfDeviceInfo isRegularScreen] ? _regular : _compact)
 
 
 
