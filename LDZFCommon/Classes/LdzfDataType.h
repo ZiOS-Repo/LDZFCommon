@@ -88,5 +88,10 @@ BOOL isDictEmptyOrNil(id obj);
  */
 NSDictionary* safeDict(id obj);
 
+
+#pragma mark - JSON & STRING
+NSDictionary* JSON_OBJ_FROM_STRING(NSString *jsonString);
+NSString* JSON_STRING_FROM_OBJ(NSDictionary *dic);
+
 @end
 

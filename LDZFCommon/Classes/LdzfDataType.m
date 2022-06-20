@@ -141,6 +141,30 @@ NSDictionary* safeDict(id obj) {
     }
 }
 
+#pragma mark - JSON & STRING
+NSDictionary* JSON_OBJ_FROM_STRING(NSString *jsonString) {
+    if (isStringEmptyOrNil(jsonString)) {
+        return nil;
+    }
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    id JSONObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+    if (err || !isDictionary(JSONObject)) {
+        return nil;
+    }
+    return JSONObject;
 
+}
 
+NSString* JSON_STRING_FROM_OBJ(NSDictionary *dic) {
+    if (isDictEmptyOrNil(dic)) {
+        return nil;
+    }
+    NSError *parseError = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
+    if (parseError || !jsonData) {
+        return nil;
+    }
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
 @end
