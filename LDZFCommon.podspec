@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LDZFCommon'
-  s.version          = '0.2.4'
+  s.version          = '0.3.0'
   s.summary          = 'A short description of LDZFCommon.'
 
 # This description is used to generate tags and improve search results.
@@ -40,6 +40,30 @@ TODO: Add long description of the pod here.
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 #  s.dependency 'QMUIKit/QMUICore'
+  s.dependency 'QMUIKit/QMUICore'
+  s.dependency 'QMUIKit/QMUIComponents/QMUIBadge'
+  s.dependency 'QMUIKit/QMUIComponents/QMUIButton'
+  s.dependency 'QMUIKit/QMUIComponents/QMUINavigationButton'
+  s.dependency 'QMUIKit/QMUIComponents/QMUIToolbarButton'
+  s.dependency 'QMUIKit/QMUIComponents/QMUITableView'
+  s.dependency 'QMUIKit/QMUIComponents/QMUITableViewProtocols'
+  s.dependency 'QMUIKit/QMUIComponents/QMUITableViewHeaderFooterView'
+  s.dependency 'QMUIKit/QMUIComponents/QMUICellSizeKeyCache'
+  s.dependency 'QMUIKit/QMUIComponents/QMUICellHeightKeyCache'
+  s.dependency 'QMUIKit/QMUIComponents/QMUICellHeightCache'
+  s.dependency 'QMUIKit/QMUIComponents/QMUICollectionViewPagingLayout'
+  s.dependency 'QMUIKit/QMUIComponents/QMUIGridView'
+  s.dependency 'QMUIKit/QMUIComponents/QMUIStaticTableView'
+  s.dependency 'QMUIKit/QMUIComponents/QMUIFloatLayoutView'
+  s.dependency 'QMUIKit/QMUIComponents/QMUISegmentedControl'
 
+  s.dependency 'QMUIKit/QMUIComponents/QMUIAnimation'
+  s.dependency 'QMUIKit/QMUIComponents/QMUICALayerExtension'
+  s.dependency 'QMUIKit/QMUIComponents/QMUICAAnimationExtension'
+  
+  s.dependency 'QMUIKit/QMUIComponents/QMUIMultipleDelegates'
+  s.dependency 'QMUIKit/QMUIComponents/QMUIOrderedDictionary'
+  s.dependency 'QMUIKit/QMUIComponents/QMUIScrollAnimator'
+  s.dependency 'QMUIKit/QMUIComponents/QMUIWindowSizeMonitor'
   
 end
