@@ -17,10 +17,14 @@
 #define kStatusHeight [[UIApplication sharedApplication] statusBarFrame].size.height
 #endif
 
+/// NaviBar 的内容高度
+#ifndef kNaviBarContentHeight
+#define kNaviBarContentHeight 44.0
+#endif
 
-/// NaviBar 的高度, 已适配iPhone X
+/// NaviBar 的高度
 #ifndef kNaviBarHeight
-#define kNaviBarHeight (44.0+kStatusHeight)
+#define kNaviBarHeight (kNaviBarContentHeight + kStatusHeight)
 #endif
 
 
