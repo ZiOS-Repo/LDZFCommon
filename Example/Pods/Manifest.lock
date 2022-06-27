@@ -1,5 +1,6 @@
 PODS:
-  - LDZFCommon (0.3.0):
+  - LDZFCommon (0.3.4):
+    - Masonry
     - QMUIKit/QMUIComponents/QMUIAnimation
     - QMUIKit/QMUIComponents/QMUIBadge
     - QMUIKit/QMUIComponents/QMUIButton
@@ -23,6 +24,7 @@ PODS:
     - QMUIKit/QMUIComponents/QMUIToolbarButton
     - QMUIKit/QMUIComponents/QMUIWindowSizeMonitor
     - QMUIKit/QMUICore
+  - Masonry (1.1.0)
   - QMUIKit/QMUIComponents/QMUIAnimation (4.1.3):
     - QMUIKit/QMUICore
   - QMUIKit/QMUIComponents/QMUIAppearance (4.1.3):
@@ -116,6 +118,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Masonry
     - QMUIKit
 
 EXTERNAL SOURCES:
@@ -123,7 +126,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LDZFCommon: 21ec67034150044d7b13112c49b23b298bf43fa5
+  LDZFCommon: b4b120707523e00e2898ff2f0463edae39311ca0
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   QMUIKit: 1063a99f90aedd6e2dd65026ce0df46e6785e67b
 
 PODFILE CHECKSUM: 28aef8413dfdd4291487cce55af4dcddf9ad6567

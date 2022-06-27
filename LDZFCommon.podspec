@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LDZFCommon'
-  s.version          = '0.3.4'
+  s.version          = '0.3.5'
   s.summary          = 'A short description of LDZFCommon.'
 
 # This description is used to generate tags and improve search results.
@@ -40,6 +40,7 @@ TODO: Add long description of the pod here.
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 #  s.dependency 'QMUIKit/QMUICore'
+  s.dependency 'Masonry'
   s.dependency 'QMUIKit/QMUICore'
   s.dependency 'QMUIKit/QMUIComponents/QMUIBadge'
   s.dependency 'QMUIKit/QMUIComponents/QMUIButton'
