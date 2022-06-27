@@ -10,6 +10,33 @@
 #import <UIKit/UIKit.h>
 #import "LdzfUIHelper.h"
 
+
+
+/// 状态栏高度
+#ifndef kStatusHeight
+#define kStatusHeight [[UIApplication sharedApplication] statusBarFrame].size.height
+#endif
+
+
+/// NaviBar 的高度, 已适配iPhone X
+#ifndef kNaviBarHeight
+#define kNaviBarHeight (44.0+kStatusHeight)
+#endif
+
+
+/// TabBar 高度, 已适配iPhone X
+#ifndef kTabBarHeight
+#define kTabBarHeight \
+({\
+CGFloat result = 49;\
+if(@available(iOS 11.0, *))\
+result += [[UIApplication sharedApplication] keyWindow].safeAreaInsets.bottom;\
+(result);})
+#endif
+
+
+
+
 #pragma mark -
 #pragma mark - 弱引用 & 强引用
 
