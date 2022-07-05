@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LDZFCommon'
-  s.version          = '0.3.6'
+  s.version          = '0.3.7'
   s.summary          = 'A short description of LDZFCommon.'
 
 # This description is used to generate tags and improve search results.
@@ -57,7 +57,10 @@ TODO: Add long description of the pod here.
   s.dependency 'QMUIKit/QMUIComponents/QMUIStaticTableView'
   s.dependency 'QMUIKit/QMUIComponents/QMUIFloatLayoutView'
   s.dependency 'QMUIKit/QMUIComponents/QMUISegmentedControl'
+  s.dependency 'QMUIKit/QMUIComponents/QMUIPopupMenuView'
+  s.dependency 'QMUIKit/QMUIComponents/QMUIPopupContainerView'
 
+  
   s.dependency 'QMUIKit/QMUIComponents/QMUIAnimation'
   s.dependency 'QMUIKit/QMUIComponents/QMUICALayerExtension'
   s.dependency 'QMUIKit/QMUIComponents/QMUICAAnimationExtension'
