@@ -135,6 +135,42 @@ result += [[UIApplication sharedApplication] keyWindow].safeAreaInsets.bottom;\
 
 
 
+
+
+#pragma mark -
+#pragma mark -
+#pragma mark -
+#pragma mark -
+#pragma mark -
+#pragma mark -
+#pragma mark -
+#pragma mark - Frame操作
+/**
+ *    @brief    矩形框.
+ */
+#define PNCFrameAll(x,y,w,h) CGRectMake((x), (y), (w), (h))
+
+/**
+ *    @brief    坐标为(0, 0)的矩形框.
+ */
+#define PNCFrame(w,h) PNCFrameAll(0,0,w,h)
+
+/**
+ *    @brief    完整填充frame的矩形框.
+ */
+#define PNCFrameAllInset(frame) PNCFrame(frame.size.width,frame.size.height)
+/**
+ *    @brief    以inset填充矩形框.
+ */
+#define PNCFrameInset(frame,inset) CGRectMake(inset.left, inset.top, frame.size.width - inset.left - inset.right, frame.size.height - inset.top - inset.bottom)
+
+
+
+#pragma mark -
+#pragma mark -
+#pragma mark -
+#pragma mark -
+#pragma mark -
 #pragma mark -
 #pragma mark - 常用Block定义
 typedef void (^IUVoidBlock)(void);

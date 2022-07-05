@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LDZFCommon'
-  s.version          = '0.3.5'
+  s.version          = '0.3.6'
   s.summary          = 'A short description of LDZFCommon.'
 
 # This description is used to generate tags and improve search results.
